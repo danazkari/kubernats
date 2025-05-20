@@ -35,8 +35,10 @@ import (
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
+	authv1alpha1 "github.com/xiloss/kubernats/api/auth/v1alpha1"
 	appsv1alpha1 "github.com/xiloss/kubernats/api/v1alpha1"
 	"github.com/xiloss/kubernats/internal/controller"
+	authcontroller "github.com/xiloss/kubernats/internal/controller/auth"
 	// +kubebuilder:scaffold:imports
 )
 
@@ -49,6 +51,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(appsv1alpha1.AddToScheme(scheme))
+	utilruntime.Must(authv1alpha1.AddToScheme(scheme))
 	// +kubebuilder:scaffold:scheme
 }
 
@@ -149,6 +152,13 @@ func main() {
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "JetStream")
+		os.Exit(1)
+	}
+	if err = (&authcontroller.NATSUserAccountReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "NATSUserAccount")
 		os.Exit(1)
 	}
 	// +kubebuilder:scaffold:builder

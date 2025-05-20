@@ -1,0 +1,9 @@
+apiVersion: auth.kubernats.ai/v1alpha1
+kind: NATSUserAccount
+metadata:
+  labels:
+    app.kubernetes.io/name: kubernats
+    app.kubernetes.io/managed-by: kustomize
+  name: natsuseraccount-sample
+spec:
+  # TODO(user): Add fields here

@@ -1,11 +1,58 @@
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  labels:
-    app.kubernetes.io/name: kubernats
-    app.kubernetes.io/managed-by: kustomize
   name: manager-role
 rules:
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - apps.kubernats.ai
+  resources:
+  - jetstreams
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps.kubernats.ai
+  resources:
+  - jetstreams/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - apps.kubernats.ai
+  resources:
+  - jetstreams/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - auth.kubernats.ai
+  resources:
+  - natsuseraccounts
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - auth.kubernats.ai
+  resources:
+  - natsuseraccounts/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - auth.kubernats.ai
+  resources:
+  - natsuseraccounts/status
+  verbs:
+  - get
+  - patch
+  - update

@@ -5,6 +5,7 @@
 domain: kubernats.ai
 layout:
 - go.kubebuilder.io/v4
+multigroup: true
 projectName: kubernats
 repo: github.com/xiloss/kubernats
 resources:
@@ -16,5 +17,14 @@ resources:
   group: apps
   kind: JetStream
   path: github.com/xiloss/kubernats/api/v1alpha1
+  version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: kubernats.ai
+  group: auth
+  kind: NATSUserAccount
+  path: github.com/xiloss/kubernats/api/auth/v1alpha1
   version: v1alpha1
 version: "3"

@@ -64,4 +64,12 @@ kubebuilder init \
 yes | kubebuilder create api --group apps --version v1alpha1 --kind JetStream
 ```
 
+#### Creating the NATSUserAccount API
+```bash
+kubebuilder create api \
+  --group auth --version v1alpha1 \
+  --kind NATSUserAccount \
+  --resource=true --controller=true
+```
 
+This should give you a new group for `auth` and the ability to create new users able to talk to NATS with explicit permissions
